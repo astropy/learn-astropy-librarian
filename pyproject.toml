@@ -1,3 +1,46 @@
+[project]
+name = "astropy-librarian"
+authors = [
+    {name = "J.Sick Codes Inc.", email = "hi@jsick.codes"},
+    {name = "Jeff Jennings", email = "jeffjennings@users.noreply.github.com"},
+    {name = "Adrian Price-Whelan", email = "adrian.prw@gmail.com"},
+]
+license = {text = "BSD 3-Clause License"}
+description = "The content crawler that supplies Astropy's web search."
+readme = {file = "README.rst", content-type = "text/x-rst"}
+requires-python = ">=3.11"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "License :: OSI Approved :: BSD License",
+]
+dependencies = [
+    "lxml",
+    "cssselect",
+    "algoliasearch>=4,<5",
+    "aiohttp",
+    "async_timeout",
+    "PyYAML",
+    "pydantic",
+    "typer",
+    "more-itertools",
+]
+dynamic = ["version"]
+
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.1",
+    "pytest-doctestplus",
+    "types-setuptools",
+    "types-PyYAML",
+]
+
+[project.urls]
+Homepage = "https://github.com/jonathansick/astropy-librarian"
+
+[project.scripts]
+astropylibrarian = "astropylibrarian.cli.app:app"
+
 [build-system]
 requires = [
     "setuptools>=64",
@@ -9,19 +52,35 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools_scm]
 version_file = "astropylibrarian/_version.py"
 
+[tool.pytest.ini_options]
+doctest_plus = "enabled"
+
+[tool.flake8]
+max-line-length = 79
+
+[tool.mypy]
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+ignore_missing_imports = true
+show_error_codes = true
+strict_equality = true
+warn_redundant_casts = true
+warn_unreachable = true
+warn_unused_ignores = true
+
 [tool.black]
 line-length = 79
 target-version = ["py311"]
 exclude = '''
 /(
-    \.eggs
-  | \.git
-  | \.mypy_cache
-  | \.tox
-  | \.venv
-  | _build
-  | build
-  | dist
+ \.eggs
+ | \.git
+ | \.mypy_cache
+ | \.tox
+ | \.venv
+ | _build
+ | build
+ | dist
 )/
 '''
 

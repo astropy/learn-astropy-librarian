@@ -13,7 +13,7 @@ import logging
 from pathlib import Path
 from typing import TYPE_CHECKING, List
 
-import algoliasearch.exceptions
+from algoliasearch.http.exceptions import RequestException
 
 from astropylibrarian.algolia.client import generate_index_epoch
 from astropylibrarian.reducers.tutorial import get_tutorial_reducer
@@ -171,7 +171,7 @@ async def index_tutorial(
     saved_object_ids: List[str] = []
     try:
         response = await algolia_index.save_objects_async(records)
-    except algoliasearch.exceptions.RequestException as e:
+    except RequestException as e:
         logger.error(
             "Error saving objects for tutorial %s:\n%s",
             tutorial_html.url,
